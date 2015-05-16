@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="true">
+    <file url="file://$PROJECT_DIR$/assets/ukraine.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/image_selector.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/rectangle_image_view.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/round_rectangle_w.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/city_spinner.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/city_spinner_dropdown_item.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/contact.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/colors.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/custom_style.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/dimens.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/key.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/strings.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/styles.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/themes.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/values/type.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/AreaTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/CityTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/DaysTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/GlassBaseProvider.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/LinkUnitTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/MainTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/UnitTable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/VendorTable.java" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerContact"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:text="кг на душу населения"
+                android:id="@+id/textView5" android:textSize="@dimen/text_large"
+                android:gravity="left|center" android:singleLine="true" android:layout_weight="1"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/edit_k_population" android:layout_weight="1" android:inputType="none|numberSigned|numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
+                  android:text="реальный приход" android:id="@+id/textView8" android:textSize="@dimen/text_large"
+                  android:gravity="left|center" android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_glass_real"
+                  android:layout_weight="1" android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="растраты реклама"
+                  android:id="@+id/textView9" android:textSize="@dimen/text_large" android:gravity="left|center"
+                  android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_ad_used"
+                  android:layout_weight="1" android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
+                  android:text="надо реклама" android:id="@+id/textView10" android:textSize="@dimen/text_large"
+                  android:gravity="left|center" android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_ad_max"
+                  android:layout_weight="1" android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="цена покупки"
+                  android:textSize="@dimen/text_large" android:gravity="left|center"
+                  android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_price_down"
+                  android:layout_weight="1" android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="цена продажи"
+                  android:textSize="@dimen/text_large" android:gravity="left|center"
+                  android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_price_up" android:layout_weight="1"
+                  android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="коэф. сервис"
+                  android:id="@+id/textView11" android:textSize="@dimen/text_large" android:gravity="left|center"
+                  android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:inputType="none|numberSigned|numberDecimal" android:ems="10" android:id="@+id/edit_k_service"
+                  android:layout_weight="1" android:editable="false"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="сумма сервис"
+                  android:id="@+id/textView12" android:textSize="@dimen/text_large" android:gravity="left|center"
+                  android:singleLine="true" android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:ems="10" android:id="@+id/edit_p_service"
+                  android:layout_weight="1" android:editable="false" android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сохранить"
+            android:id="@+id/buttonSave"/>
+</LinearLayout>

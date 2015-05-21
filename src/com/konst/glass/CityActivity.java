@@ -19,8 +19,8 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 
-/*
- * Created by Kostya on 09.05.2015.
+/** Активность для города.
+ * @author Kostya
  */
 public class CityActivity extends Activity{
     CityTable cityTable;
@@ -79,18 +79,6 @@ public class CityActivity extends Activity{
         buttonSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*try {
-                    values.put(CityTable.KEY_K_POPULATION, Integer.valueOf(editKPopulation.getText().toString()));
-                    values.put(CityTable.KEY_G_REAL, Integer.valueOf(editGlassReal.getText().toString()));
-                    values.put(CityTable.KEY_AD_USED, Integer.valueOf(editAdUsed.getText().toString()));
-                    values.put(CityTable.KEY_AD_MAX, Integer.valueOf(editAdMax.getText().toString()));
-                    values.put(CityTable.KEY_PRICE_DOWN, Integer.valueOf(editPriceDown.getText().toString()));
-                    values.put(CityTable.KEY_PRICE_UP, Integer.valueOf(editPriceUp.getText().toString()));
-                    values.put(CityTable.KEY_K_SERVICE, Integer.valueOf(editKService.getText().toString()));
-                    values.put(CityTable.KEY_P_SERVICE, Integer.valueOf(editPriceService.getText().toString()));
-                }catch (NumberFormatException e){
-                    values.put(CityTable.KEY_CASH, 0);
-                }*/
                 cityTable.updateEntry(cityId, valuesCity);
             }
         });
@@ -171,6 +159,5 @@ public class CityActivity extends Activity{
             }
         }
     }
-
 
 }

@@ -15,6 +15,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/** Таблица городов
+ * @author Kostya
+ */
 public class CityTable {
 
     private final Context mContext;
@@ -24,19 +27,30 @@ public class CityTable {
     public static final String TABLE = "city";
 
     public static final String KEY_ID           = BaseColumns._ID;
-    public static final String KEY_CITY         = "city";               //город
-    public static final String KEY_AREA         = "area";               //область
-    public static final String KEY_UNIT_QTY     = "unitQty";          //количество созданых площадок
-    public static final String KEY_POPULATION   = "population";         //население
-    public static final String KEY_K_POPULATION = "kPopulation";        //норма прихода в колограмах на человека в месяц
-    public static final String KEY_G_REAL       = "gReal";              //кол во реального прихода в городе кг
-    public static final String KEY_AD_USED      = "adUsed";             //сумма расхода на рекламу в месяц
-    public static final String KEY_AD_MAX       = "adMax";              //сумма расхода на рекламу необходимая для максимального эфекта в месяц
-    public static final String KEY_PRICE_DOWN   = "priceDown";          //цена закупки стекла за тонну
-    public static final String KEY_PRICE_UP     = "priceUP";            //цена продажи стекла за тонну
-    public static final String KEY_K_SERVICE    = "kService";          //коэфициент сервиса (логистика удобство прочее)
-    public static final String KEY_P_SERVICE    = "pService";          //сумма сервиса необходимая для максимального эфекта в месяц
-
+    /** Название города */
+    public static final String KEY_CITY         = "city";
+    /** Область города */
+    public static final String KEY_AREA         = "area";
+    /** Количество созданых площадок */
+    public static final String KEY_UNIT_QTY     = "unitQty";
+    /** Население */
+    public static final String KEY_POPULATION   = "population";
+    /** Норма прихода в колограмах на человека в месяц */
+    public static final String KEY_K_POPULATION = "kPopulation";
+    /** Кол во реального прихода в городе кг */
+    public static final String KEY_G_REAL       = "gReal";
+    /** Сумма расхода на рекламу в месяц */
+    public static final String KEY_AD_USED      = "adUsed";
+    /** Сумма расхода на рекламу необходимая для максимального эфекта в месяц */
+    public static final String KEY_AD_MAX       = "adMax";
+    /** Цена закупки стекла за тонну */
+    public static final String KEY_PRICE_DOWN   = "priceDown";
+    /** Цена продажи стекла за тонну */
+    public static final String KEY_PRICE_UP     = "priceUP";
+    /** Коэфициент сервиса (логистика удобство прочее) */
+    public static final String KEY_K_SERVICE    = "kService";
+    /** Сумма сервиса необходимая для максимального эфекта в месяц */
+    public static final String KEY_P_SERVICE    = "pService";
 
     private static final String[] All_COLUMN_TABLE = {
             KEY_ID,
@@ -76,16 +90,27 @@ public class CityTable {
         contentResolver = mContext.getContentResolver();
     }
 
+    /** Получить города по условию населения
+     * @param population Население в человеках.
+     * @return Курсор с данными.
+     */
     public Cursor getValidCity(int population) {
         return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_POPULATION + "> "+ population + " or " + KEY_POPULATION + "= " + population, null, KEY_POPULATION + " DESC ");
     }
 
+    /** Получить города с открытыми площадками.
+     * @return Данные городов в Map контейнере.
+     */
     public Map<String, ContentValues>  getValuesIfUnits(){
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_UNIT_QTY + " > 0 ", null, KEY_POPULATION + " DESC ");
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         return mQueryMap.getRows();
     }
 
+    /** Получить данные города.
+     * @param _rowIndex Индекс города.
+     * @return Данные города в Map контейнере
+     */
     public ContentValues getEntry(int _rowIndex){
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, null, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
@@ -93,15 +118,27 @@ public class CityTable {
         return map.get(String.valueOf(_rowIndex));
     }
 
+    /** Получить запись города
+     * @param _rowIndex Индекс города.
+     * @return Курсор.
+     */
     public Cursor getItem(int _rowIndex) {
         Uri uri = ContentUris.withAppendedId(CONTENT_URI, _rowIndex);
         return contentResolver.query(uri, null, null, null, null);
     }
 
+    /** Получить сгруперованые данные по области.
+     * @param name Имя области.
+     * @return Курсор с записями.
+     */
     public Cursor getGroupEntries(String name) {
         return mContext.getContentResolver().query(CONTENT_URI, new String[]{KEY_ID,KEY_AREA}, name+" IS NOT NULL) GROUP BY ("+name, null,null);
     }
 
+    /** Обновить запись
+     * @param entry
+     * @return
+     */
     public ContentValues updateGReal(Map.Entry<String, ContentValues> entry){
         ContentValues values = entry.getValue();
         float kAd = (float)values.getAsInteger(KEY_AD_USED) / (float)values.getAsInteger(KEY_AD_MAX);           //коэ. реклама
@@ -125,6 +162,10 @@ public class CityTable {
         }
     }
 
+    /** Добавить записи в таблицу из файла.
+     * @param db База данных.
+     * @param file Имя файла.
+     */
     public void addCityFromFile(SQLiteDatabase db, String file){
         AssetManager manager = mContext.getAssets();
         InputStream input = null;

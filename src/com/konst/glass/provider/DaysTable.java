@@ -10,6 +10,9 @@ import android.provider.BaseColumns;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/** таблица дней.
+ * @author Kostya
+ */
 public class DaysTable {
 
     private final Context mContext;
@@ -19,8 +22,6 @@ public class DaysTable {
 
     public static final String KEY_ID = BaseColumns._ID;
     public static final String KEY_DAY = "day";
-
-
 
     private static final String[] All_COLUMN_TABLE = {
             KEY_ID,

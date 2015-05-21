@@ -39,14 +39,10 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         Map<String, ContentValues> map = mQueryMap.getRows();
         int i = map.size();*/
-
-
     }
 
 
     void newDay() {
-
-
             Uri uriDay = new DaysTable(getApplicationContext()).insertNewEntry();
             CityTable cityTable = new CityTable(MyActivity.this);
             Map<String, ContentValues> cities = cityTable.getValuesIfUnits();
@@ -62,9 +58,6 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
                     unit.shippingGlass();
                 }
             }
-
-
-
             /*Cursor cursor = new UnitTable(getApplicationContext()).getAllEntries();
             ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
             Map<String, ContentValues> mapUnit = mQueryMap.getRows();

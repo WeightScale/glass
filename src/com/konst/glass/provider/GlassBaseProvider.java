@@ -10,24 +10,24 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
 
-/*
- * Created with IntelliJ IDEA.
- * User: Kostya
- * Date: 08.12.13
- * Time: 13:11
- * To change this template use File | Settings | File Templates.
+/**
+ * Контент провайдер.
+ * @author Kostya
  */
 public class GlassBaseProvider extends ContentProvider {
 
+    /** Имя базы данных */
     private static final String DATABASE_NAME = "glass.db";
+    /** Версия базы данных */
     private static final int DATABASE_VERSION = 1;
+    /** Полномочия */
     static final String AUTHORITY = "com.konst.glass.glass";
     private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
 
     private static final int ALL_ROWS = 1;
     private static final int SINGLE_ROWS = 2;
 
-
+    /** Лист таблиц базы данных. */
     private enum TABLE_LIST {
         CITY_LIST,
         CITY_ID,
@@ -66,10 +66,10 @@ public class GlassBaseProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, VendorTable.TABLE + "/#", TABLE_LIST.VENDOR_ID.ordinal());
     }
 
-    /*public void vacuum(){
-        db.execSQL("VACUUM");
-    }*/
-
+    /** Получить таблицу по Uri.
+     * @param uri таблици.
+     * @return Таблицу.
+     */
     private String getTable(Uri uri) {
         switch (TABLE_LIST.values()[uriMatcher.match(uri)]) {
             case CITY_LIST:
@@ -112,7 +112,14 @@ public class GlassBaseProvider extends ContentProvider {
     }
 
 
-
+    /** Выполнить запрос к таблице данных.
+     * @param uri Uri таблици.
+     * @param projection Имена столбцов если null тогда все.
+     * @param selection Условия выбора
+     * @param selectionArgs
+     * @param sort
+     * @return
+     */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sort) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();

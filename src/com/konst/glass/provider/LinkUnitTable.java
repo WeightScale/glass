@@ -11,6 +11,9 @@ import android.provider.BaseColumns;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/** таблица вклада main в площадку
+ *@author Kostya
+ */
 public class LinkUnitTable {
 
     private final Context mContext;
@@ -19,8 +22,13 @@ public class LinkUnitTable {
     public static final String TABLE = "linkUnit";
 
     public static final String KEY_ID = BaseColumns._ID;
+    /** Индекс main. */
     public static final String KEY_MAIN_ID = "mainId";
+    /** Индекс unit */
     public static final String KEY_UNIT_ID = "unitId";
+    /** Сумма денег
+     *
+     */
     public static final String KEY_CASH = "cash";
 
 

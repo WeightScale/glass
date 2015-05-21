@@ -1,19 +1,12 @@
 package com.konst.glass.provider;
 
 import android.content.*;
-import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class UnitTable {
@@ -21,26 +14,43 @@ public class UnitTable {
     private final Context mContext;
     final ContentResolver contentResolver;
 
+    /**
+     * Имя таблици
+     */
     public static final String TABLE = "unit";
 
     public static final String KEY_ID           = BaseColumns._ID;
-    public static final String KEY_DATE         = "date";           //дата создания площадки
-    public static final String KEY_CITY_ID      = "cityId";         //индекс записи таблица city
-    public static final String KEY_VENDOR_ID    = "vendorId";       //индекс записи таблица vendor
+    /** Дата создания площадки. */
+    public static final String KEY_DATE         = "date";
+    /** Индекс записи таблица city */
+    public static final String KEY_CITY_ID      = "cityId";
+    /** индекс записи таблица vendor */
+    public static final String KEY_VENDOR_ID    = "vendorId";
     //public static final String KEY_LINK_UNIT_ID = "linkUnitId";     //индекс записи таблица linkUnit
-    public static final String KEY_DAYS         = "days";      //количество дней жизни площадки
-    public static final String KEY_MONTHS       = "months";      //количество месяцев жизни площадки
-    public static final String KEY_YEARS        = "years";      //количество дней жизни площадки
-    public static final String KEY_GLASS        = "glass";       //количество стекла на площадке
-    public static final String KEY_CASH         = "cash";           //сумма денег на площадке
+    /** Количество дней жизни площадки */
+    public static final String KEY_DAYS         = "days";
+    /** Количество месяцев жизни площадки */
+    public static final String KEY_MONTHS       = "months";
+    /** Количество дней жизни площадки */
+    public static final String KEY_YEARS        = "years";
+    /** Количество стекла на площадке */
+    public static final String KEY_GLASS        = "glass";
+    /** Сумма денег на площадке */
+    public static final String KEY_CASH         = "cash";
     //public static final String KEY_PRICE        = "price";          //цена покупки стекла
     //public static final String KEY_PRICE_PACT   = "pricePact";      //цена продажи стекла
-    public static final String KEY_RATE         = "rate";           //норма отгрузки в килограмах
-    public static final String KEY_RATE_PRICE   = "ratePrice";      //расходы на отгрузку
-    public static final String KEY_EXES         = "exes";           //общии расходы в месяц
 
-    public static final String KEY_DATA1        = "data1";          //прочии данные
-    public static final String KEY_DATA2        = "data2";          //прочии данные
+    /** Норма отгрузки в килограмах */
+    public static final String KEY_RATE         = "rate";
+    /** Расходы на отгрузку */
+    public static final String KEY_RATE_PRICE   = "ratePrice";
+    /** Общии расходы в месяц */
+    public static final String KEY_EXES         = "exes";
+
+    /** Прочии данные */
+    public static final String KEY_DATA1        = "data1";
+    /** Прочии данные  */
+    public static final String KEY_DATA2        = "data2";
 
     private static final String[] All_COLUMN_TABLE = {
             KEY_ID,
@@ -61,6 +71,9 @@ public class UnitTable {
             KEY_DATA1,
             KEY_DATA2};
 
+    /**
+     * Создать таблицу.
+     */
     public static final String TABLE_CREATE = "create table "
             + TABLE + " ("
             + KEY_ID + " integer primary key autoincrement, "
@@ -84,6 +97,9 @@ public class UnitTable {
 
     private static final Uri CONTENT_URI = Uri.parse("content://" + GlassBaseProvider.AUTHORITY + '/' + TABLE);
 
+    /** Конструктор таблици площадки.
+     * @param context Контекст.
+     */
     public UnitTable(Context context) {
         mContext = context;
         contentResolver = mContext.getContentResolver();
@@ -95,12 +111,22 @@ public class UnitTable {
         contentValues.put(KEY_DATE, new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(date));
         return contentResolver.insert(CONTENT_URI, contentValues);
     }
+
+    /** Вставить новую запись в таблицу.
+     * @param values Значения для добавления.
+     * @return Uri добавленой записи.
+     */
     public Uri insertNewEntry(ContentValues values) {
         Date date = new Date();
         values.put(KEY_DATE, new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(date));
         return contentResolver.insert(CONTENT_URI, values);
     }
 
+    /** Обновить запись в таблице.
+     * @param _rowIndex Индекс записи.
+     * @param values Значения для обновления
+     * @return true - Запись таблици обновлена.
+     */
     public boolean updateEntry(int _rowIndex, ContentValues values) {
         Uri uri = ContentUris.withAppendedId(CONTENT_URI, _rowIndex);
         try {
@@ -110,6 +136,11 @@ public class UnitTable {
         }
     }
 
+    /** Обновить запись в таблице.
+     * @param uri Uri записи.
+     * @param values Значения для обновления
+     * @return true - Запись таблици обновлена.
+     */
     public boolean updateEntry(Uri uri, ContentValues values) {
         try {
             return contentResolver.update(uri, values, null, null) > 0;
@@ -118,16 +149,27 @@ public class UnitTable {
         }
     }
 
+    /** Получить все записи.
+     * @return Курсор с записями.
+     */
     public Cursor getAllEntries() {
         return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, null, null, null);
     }
 
+    /** Получить записи по отбору города.
+     * @param cityId Индекс города.
+     * @return Значения в Map контейнере.
+     */
     public Map<String, ContentValues> getEntriesToCity(int cityId) {
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_CITY_ID + " = " + cityId, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         return mQueryMap.getRows();
     }
 
+    /** Получить запись.
+     * @param uri Uri записи.
+     * @return Курсор записи.
+     */
     public Cursor getItem(Uri uri) {
             return contentResolver.query(uri, null, null, null, null);
     }

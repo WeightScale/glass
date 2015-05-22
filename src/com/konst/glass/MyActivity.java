@@ -105,8 +105,6 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
 
         @Override
         public int messageCash(int cash) {
-
-            MainTable mainTable = new MainTable(MyActivity.this);
             int mainCash = mainTable.getCash(mainId);
             //if (mainCash > cash){
                 mainCash -= cash;
@@ -122,6 +120,14 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
             mainCash -= sum;
             mainTable.updateCash(mainId, mainCash);
             return sum;
+        }
+
+        @Override
+        public int messageSippingGlass(Unit.Goods goods) {//todo
+            int mainCash = mainTable.getCash(mainId);
+            mainCash -= goods.getCash();
+            mainTable.updateCash(mainId, mainCash);
+            return goods.getCash();
         }
     };
 

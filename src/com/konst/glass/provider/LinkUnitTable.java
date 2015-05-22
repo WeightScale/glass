@@ -26,9 +26,7 @@ public class LinkUnitTable {
     public static final String KEY_MAIN_ID = "mainId";
     /** Индекс unit */
     public static final String KEY_UNIT_ID = "unitId";
-    /** Сумма денег
-     *
-     */
+    /** Сумма денег */
     public static final String KEY_CASH = "cash";
 
 

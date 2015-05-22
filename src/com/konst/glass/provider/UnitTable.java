@@ -14,9 +14,7 @@ public class UnitTable {
     private final Context mContext;
     final ContentResolver contentResolver;
 
-    /**
-     * Имя таблици
-     */
+    /** Имя таблици */
     public static final String TABLE = "unit";
 
     public static final String KEY_ID           = BaseColumns._ID;
@@ -37,16 +35,15 @@ public class UnitTable {
     public static final String KEY_GLASS        = "glass";
     /** Сумма денег на площадке */
     public static final String KEY_CASH         = "cash";
-    //public static final String KEY_PRICE        = "price";          //цена покупки стекла
-    //public static final String KEY_PRICE_PACT   = "pricePact";      //цена продажи стекла
-
+    /** Расходы на площадке.
+     *  Включается стоимость стекла, расходы в месяц  */
+    //public static final String KEY_SPENDING     = "spending";
     /** Норма отгрузки в килограмах */
     public static final String KEY_RATE         = "rate";
     /** Расходы на отгрузку */
     public static final String KEY_RATE_PRICE   = "ratePrice";
     /** Общии расходы в месяц */
     public static final String KEY_EXES         = "exes";
-
     /** Прочии данные */
     public static final String KEY_DATA1        = "data1";
     /** Прочии данные  */
@@ -63,17 +60,13 @@ public class UnitTable {
             KEY_YEARS,
             KEY_GLASS,
             KEY_CASH,
-            //KEY_PRICE,
-            //KEY_PRICE_PACT,
             KEY_RATE,
             KEY_RATE_PRICE,
             KEY_EXES,
             KEY_DATA1,
             KEY_DATA2};
 
-    /**
-     * Создать таблицу.
-     */
+    /** Создать таблицу. */
     public static final String TABLE_CREATE = "create table "
             + TABLE + " ("
             + KEY_ID + " integer primary key autoincrement, "
@@ -98,8 +91,7 @@ public class UnitTable {
     private static final Uri CONTENT_URI = Uri.parse("content://" + GlassBaseProvider.AUTHORITY + '/' + TABLE);
 
     /** Конструктор таблици площадки.
-     * @param context Контекст.
-     */
+     * @param context Контекст. */
     public UnitTable(Context context) {
         mContext = context;
         contentResolver = mContext.getContentResolver();
@@ -114,8 +106,7 @@ public class UnitTable {
 
     /** Вставить новую запись в таблицу.
      * @param values Значения для добавления.
-     * @return Uri добавленой записи.
-     */
+     * @return Uri добавленой записи. */
     public Uri insertNewEntry(ContentValues values) {
         Date date = new Date();
         values.put(KEY_DATE, new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(date));
@@ -125,8 +116,7 @@ public class UnitTable {
     /** Обновить запись в таблице.
      * @param _rowIndex Индекс записи.
      * @param values Значения для обновления
-     * @return true - Запись таблици обновлена.
-     */
+     * @return true - Запись таблици обновлена. */
     public boolean updateEntry(int _rowIndex, ContentValues values) {
         Uri uri = ContentUris.withAppendedId(CONTENT_URI, _rowIndex);
         try {
@@ -139,8 +129,7 @@ public class UnitTable {
     /** Обновить запись в таблице.
      * @param uri Uri записи.
      * @param values Значения для обновления
-     * @return true - Запись таблици обновлена.
-     */
+     * @return true - Запись таблици обновлена. */
     public boolean updateEntry(Uri uri, ContentValues values) {
         try {
             return contentResolver.update(uri, values, null, null) > 0;
@@ -150,16 +139,14 @@ public class UnitTable {
     }
 
     /** Получить все записи.
-     * @return Курсор с записями.
-     */
+     * @return Курсор с записями. */
     public Cursor getAllEntries() {
         return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, null, null, null);
     }
 
     /** Получить записи по отбору города.
      * @param cityId Индекс города.
-     * @return Значения в Map контейнере.
-     */
+     * @return Значения в Map контейнере. */
     public Map<String, ContentValues> getEntriesToCity(int cityId) {
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_CITY_ID + " = " + cityId, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
@@ -168,8 +155,7 @@ public class UnitTable {
 
     /** Получить запись.
      * @param uri Uri записи.
-     * @return Курсор записи.
-     */
+     * @return Курсор записи. */
     public Cursor getItem(Uri uri) {
             return contentResolver.query(uri, null, null, null, null);
     }

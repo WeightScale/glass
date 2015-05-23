@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:background="#ff4e4e4e">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="Вклад Main"
+                  android:gravity="center_vertical" android:singleLine="true"
+                  android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:inputType="number"
+                  android:ems="10" android:id="@+id/editDepositMain" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:background="#ff4e4e4e">
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="Вклад Unit"
+                  android:id="@+id/textView" android:gravity="center_vertical" android:singleLine="true"
+                  android:layout_weight="1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:inputType="number"
+                  android:ems="10" android:id="@+id/editDepositUnit" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:background="#ff4e4e4e">
+        <ImageView style="@style/CustomButtonImage" android:layout_width="match_parent"
+                   android:layout_height="wrap_content" android:id="@+id/buttonBack"
+                   android:src="@drawable/ic_action_back" android:layout_weight="1" android:clickable="true"
+                   android:contentDescription="@string/Come_back"/>
+        <ImageView style="@style/CustomButtonImage" android:layout_width="match_parent"
+                   android:layout_height="wrap_content" android:id="@+id/buttonAdd"
+                   android:src="@drawable/ic_action_add" android:layout_weight="1" android:clickable="true"
+                   android:contentDescription="@string/Add_contact"/>
+    </LinearLayout>
+</LinearLayout>

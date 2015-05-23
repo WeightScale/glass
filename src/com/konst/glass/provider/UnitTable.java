@@ -33,6 +33,8 @@ public class UnitTable {
     public static final String KEY_YEARS        = "years";
     /** Количество стекла на площадке */
     public static final String KEY_GLASS        = "glass";
+    /** Стоимость стекла на площадке */
+    public static final String KEY_GLASS_CASH   = "glassCash";
     /** Сумма денег на площадке */
     public static final String KEY_CASH         = "cash";
     /** Расходы на площадке.
@@ -44,6 +46,10 @@ public class UnitTable {
     public static final String KEY_RATE_PRICE   = "ratePrice";
     /** Общии расходы в месяц */
     public static final String KEY_EXES         = "exes";
+    /** Вклад денег в площадку Main */
+    public static final String KEY_DEPOSIT_MAIN = "depositMain";
+    /** Вклад денег в площадку Unit */
+    public static final String KEY_DEPOSIT_UNIT = "depositUnit";
     /** Прочии данные */
     public static final String KEY_DATA1        = "data1";
     /** Прочии данные  */
@@ -59,6 +65,7 @@ public class UnitTable {
             KEY_MONTHS,
             KEY_YEARS,
             KEY_GLASS,
+            KEY_GLASS_CASH,
             KEY_CASH,
             KEY_RATE,
             KEY_RATE_PRICE,
@@ -78,12 +85,15 @@ public class UnitTable {
             + KEY_MONTHS + " integer,"
             + KEY_YEARS + " integer,"
             + KEY_GLASS + " real,"
+            + KEY_GLASS_CASH + " integer,"
             + KEY_CASH + " integer,"
             //+ KEY_PRICE + " integer,"
             //+ KEY_PRICE_PACT + " integer,"
             + KEY_RATE + " integer,"
             + KEY_RATE_PRICE + " integer,"
             + KEY_EXES + " integer,"
+            + KEY_DEPOSIT_MAIN + " integer,"
+            + KEY_DEPOSIT_UNIT + " integer,"
             + KEY_DATA1 + " integer,"
             + KEY_DATA2 + " text );";
 

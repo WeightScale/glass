@@ -22,6 +22,11 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="New Month"
+            android:id="@+id/buttonMonth"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Open City"
             android:id="@+id/buttonOpenCity"/>
 </LinearLayout>

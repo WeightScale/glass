@@ -40,15 +40,11 @@
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:inputType="number"
                   android:ems="10" android:id="@+id/editTextExes" android:layout_weight="1"/>
     </LinearLayout>
-    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
-                  android:layout_height="wrap_content">
-        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
-                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="Вклад Main"
-                  android:id="@+id/textView7" android:layout_weight="1" android:gravity="center_vertical"
-                  android:singleLine="true"/>
-        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:inputType="number"
-                  android:ems="10" android:id="@+id/editTextMainDeposit" android:layout_weight="1"/>
-    </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить вклад"
+            android:id="@+id/buttonAddCash"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

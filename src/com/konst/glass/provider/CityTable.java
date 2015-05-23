@@ -135,9 +135,9 @@ public class CityTable {
         return mContext.getContentResolver().query(CONTENT_URI, new String[]{KEY_ID,KEY_AREA}, name+" IS NOT NULL) GROUP BY ("+name, null,null);
     }
 
-    /** Обновить запись
+    /** Обновить запись реального прихода стекла для города
      * @param entry
-     * @return
+     * @return Значения города.
      */
     public ContentValues updateGReal(Map.Entry<String, ContentValues> entry){
         ContentValues values = entry.getValue();

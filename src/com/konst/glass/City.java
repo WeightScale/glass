@@ -5,7 +5,7 @@ import android.content.Context;
 import com.konst.glass.provider.CityTable;
 
 
-/** Класс для работы с городом
+/** РљР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РіРѕСЂРѕРґРѕРј
  *
  */
 public class City {

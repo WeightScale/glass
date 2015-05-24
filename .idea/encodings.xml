@@ -17,10 +17,13 @@
     <file url="file://$PROJECT_DIR$/res/values/styles.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/themes.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/type.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/City.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/CityActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/CityListActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/HandlerMain.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/Main.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/MyActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/konst/glass/UnitListActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/VendorActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/VendorListActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/konst/glass/provider/AreaTable.java" charset="UTF-8" />

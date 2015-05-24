@@ -175,6 +175,7 @@ public class UnitActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.buttonAddUnit:
                 valuesUnit.put(UnitTable.KEY_GLASS, 0);
+                valuesUnit.put(UnitTable.KEY_GLASS_CASH, 0);
                 int cash = valuesUnit.getAsInteger(unitTable.KEY_DEPOSIT_MAIN) + valuesUnit.getAsInteger(unitTable.KEY_DEPOSIT_UNIT);
                 valuesUnit.put(UnitTable.KEY_CASH, cash);
                 valuesUnit.put(UnitTable.KEY_DAYS, 0);

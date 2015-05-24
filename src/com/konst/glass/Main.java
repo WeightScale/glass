@@ -5,48 +5,48 @@ import android.content.Context;
 import com.konst.glass.provider.MainTable;
 import com.konst.glass.provider.UnitTable;
 
-/** Класс Main.
+/** РљР»Р°СЃСЃ Main.
  * @author Kostya */
 public class Main {
     /** The Context. */
     Context context;
-    /** Значения данных записи main. */
+    /** Р—РЅР°С‡РµРЅРёСЏ РґР°РЅРЅС‹С… Р·Р°РїРёСЃРё main. */
     ContentValues valuesMain;
     /** The Main table. */
     MainTable mainTable;
 
-    /** Новый экземпляр Main.
+    /** РќРѕРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ Main.
      * @param context the context
-     * @param _rowIndex Индекс записи. */
+     * @param _rowIndex РРЅРґРµРєСЃ Р·Р°РїРёСЃРё. */
     Main(Context context, int _rowIndex){
         this.context = context;
         mainTable = new MainTable(context);
         valuesMain = mainTable.getEntry(_rowIndex);
     }
 
-    /** Получить Имя
-     * @return Имя в текстовом виде. */
+    /** РџРѕР»СѓС‡РёС‚СЊ РРјСЏ
+     * @return РРјСЏ РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ. */
     public String getName(){
         return valuesMain.getAsString(MainTable.KEY_NAME);
     }
 
-    /** Получить сумму денег.
-     *  @return Сумма денег.  */
+    /** РџРѕР»СѓС‡РёС‚СЊ СЃСѓРјРјСѓ РґРµРЅРµРі.
+     *  @return РЎСѓРјРјР° РґРµРЅРµРі.  */
     public int getCash(){
         return valuesMain.getAsInteger(MainTable.KEY_CASH);
     }
 
-    /** Получить стекло.
-     * @return Стекло float. */
+    /** РџРѕР»СѓС‡РёС‚СЊ СЃС‚РµРєР»Рѕ.
+     * @return РЎС‚РµРєР»Рѕ float. */
     public float getGlass(){
         return valuesMain.getAsFloat(MainTable.KEY_GLASS);
     }
 
-    /** Додавить стекло.
-     * @param glass Стекло в тоннах. */
+    /** Р”РѕРґР°РІРёС‚СЊ СЃС‚РµРєР»Рѕ.
+     * @param glass РЎС‚РµРєР»Рѕ РІ С‚РѕРЅРЅР°С…. */
     private void glassPlus(float glass){ valuesMain.put(UnitTable.KEY_GLASS, getGlass() + glass); }
 
-    /** Добавление суммы денег
-     * @param cash Сумма денег. */
+    /** Р”РѕР±Р°РІР»РµРЅРёРµ СЃСѓРјРјС‹ РґРµРЅРµРі
+     * @param cash РЎСѓРјРјР° РґРµРЅРµРі. */
     private void cashPlus(int cash){ valuesMain.put(UnitTable.KEY_CASH, getCash() + cash); }
 }

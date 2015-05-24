@@ -70,6 +70,8 @@ public class UnitTable {
             KEY_RATE,
             KEY_RATE_PRICE,
             KEY_EXES,
+            KEY_DEPOSIT_MAIN,
+            KEY_DEPOSIT_UNIT,
             KEY_DATA1,
             KEY_DATA2};
 
@@ -151,14 +153,14 @@ public class UnitTable {
     /** Получить все записи.
      * @return Курсор с записями. */
     public Cursor getAllEntries() {
-        return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, null, null, null);
+        return contentResolver.query(CONTENT_URI, null, null, null, null);
     }
 
     /** Получить записи по отбору города.
      * @param cityId Индекс города.
      * @return Значения в Map контейнере. */
     public Map<String, ContentValues> getEntriesToCity(int cityId) {
-        Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_CITY_ID + " = " + cityId, null, null);
+        Cursor cursor = contentResolver.query(CONTENT_URI, null, KEY_CITY_ID + " = " + cityId, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         return mQueryMap.getRows();
     }

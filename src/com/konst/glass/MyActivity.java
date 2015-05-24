@@ -62,7 +62,7 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
             /** Обновляес реальный приход и получаем значения для города*/
             ContentValues valuesCity = cityTable.updateGReal(entryCity);
             /** Экземпляр таблици площадок*/
-            UnitTable unitTable = new UnitTable(MyActivity.this);
+            UnitTable unitTable = new UnitTable(this);
             /** Контейнер площадок со значениями*/
             Map<String, ContentValues> units = unitTable.getEntriesToCity(Integer.valueOf(entryCity.getKey()));
             /** Цикл обработки площадок*/
@@ -144,8 +144,10 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         @Override
         public int messageSippingGlass(Unit.Goods goods) {//todo
             int mainCash = mainTable.getCash(mainId);
-            mainCash -= goods.getCash();
-            mainTable.updateCash(mainId, mainCash);
+            int sippingCash = goods.getCash();
+
+            //mainCash -= goods.getCash();
+            //mainTable.updateCash(mainId, mainCash);
             return goods.getCash();
         }
     };

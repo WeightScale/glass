@@ -71,7 +71,7 @@ public class Unit {
 
     /** Получаем индекс площадки.
      * @return Индекс площадки.  */
-    private int getId(){ return valuesUnit.getAsInteger(UnitTable.KEY_ID); }
+    private int getId(){ return Integer.valueOf(entry.getKey()); }
 
     /** Получить расход по площадке в месяц.
      * @return Расход. */
@@ -125,6 +125,9 @@ public class Unit {
     /** Добавить стоимость стекла на площадку.
      * @param cash Сумма денег.  */
     private void glassCashPlus(int cash){ valuesUnit.put(UnitTable.KEY_GLASS_CASH, getGlassCash() + cash); }
+    /** Отнять стоимость стекла на площадку.
+     * @param cash Сумма денег.  */
+    private void glassCashMinus(int cash){ valuesUnit.put(UnitTable.KEY_GLASS_CASH, getGlassCash() - cash); }
     /** Отнимаем стекло с площадки.
      * @param glass Стекло в килограммах. */
     private void glassMinus(float glass){ valuesUnit.put(UnitTable.KEY_GLASS, getGlass() - glass); }
@@ -209,26 +212,49 @@ public class Unit {
         if (getGlass() >= getRate()){
             /** Если сумма денег на площадке равно расходам для отправки */
             if (getCash() >= getRatePrice()){
-                /** Списываем деньги на отправку */
-                cashMinus(getRatePrice());
-                /** Списываем с площадки вес для отгрузки */
-                glassMinus(getRate());
                 /** Определяем сумму продажи товара */
-                int sum = (int) ((getGlassCash() / getGlass()) * getRate());
-                /** создаем экземпляр товара */
-                Goods goods = new Goods();
-                /** Устанавливаем вес товара */
-                goods.setGlass(getRate());
-                /** Устанавливаем сумму товара */
-                goods.setCash(sum);
-                /** Устанавливаем покупателя товара */
+                int sum = (int) ((getGlassCash() / getGlass()) * getRate()) + getRatePrice();
+                /** Определяем коэфициент дивидентов для Unit*/
+                float dividends = (float)getDepositUnit() / (getDepositMain()+getDepositUnit());
+                int cashUp = getRate() * valuesCity.getAsInteger(CityTable.KEY_PRICE_UP);
+                /** Если сумма меньше суммы продажи*/
+                if (sum < cashUp){
+                    /** Устанавливаем сумму продажи*/
+                    sum += (cashUp - sum)*dividends;
+                }else {
+                    sum = cashUp;
+                }
+                /** создаем экземпляр товара
+                 * Устанавливаем вес товар и сумму товара*/
+                Goods goods = new Goods(getRate(), sum, valuesCity.getAsInteger(CityTable.KEY_PRICE_UP));
                 goods.setMainIndex(1);
                 /** Устанавливаем индекс площадки */
                 goods.setUnitIndex(getId());
-                /** Создаем и отправляем стекло покупателю, получаем деньги и добавляем на площадку */
-                cashPlus(mHandler.messageSippingGlass(goods));
-                //cashPlus(mHandler.messageSippingGlass(getRate(), sum));
-            }else{
+                /** Заявка на продажу и получение денег.*/
+                int shippingCash = mHandler.messageSippingGlass(goods);
+                /** Если сумма согласована списывем отгрузку*/
+                if (shippingCash == sum){
+                    /** Определяем суму денег для списания с стоимости стекла*/
+                    int glassCash = (int) ((getGlassCash() / getGlass()) * getRate());
+                    /** Если стоимость стекла и стоимость отгрузки больше стоимости продажи*/
+                    if (shippingCash < glassCash + getRatePrice()){
+                        /** Определяем сумму для списания стоимости стекла*/
+                        int cashMinus = (shippingCash - getRatePrice());
+                        /** Списываем стоимость отгруженого стекла*/
+                        glassCashMinus(cashMinus);
+                    }else {
+                        /** Списываем стоимость отгруженого стекла*/
+                        glassCashMinus((int) ((getGlassCash() / getGlass()) * getRate()));
+                    }
+                    /** Списываем с площадки вес для отгрузки */
+                    glassMinus(getRate());
+                    /** Списываем деньги на отправку */
+                    cashMinus(getRatePrice());
+                    /** Добавляем деньги за проданое стекло*/
+                    cashPlus(shippingCash);
+                }
+
+            } else {
                 cashPlus(mHandler.messageCash(getRatePrice()));
             }
             /** Обновить значения в базе данных*/
@@ -242,7 +268,7 @@ public class Unit {
         int spending = valuesCity.getAsInteger(CityTable.KEY_AD_USED) ;
         /** Добавляем расходы на сервис*/
         spending += valuesCity.getAsInteger(CityTable.KEY_P_SERVICE);
-        /** Разделить на количество площадок*/
+        /** Разделить расход на количество площадок*/
         spending /= valuesCity.getAsInteger(CityTable.KEY_UNIT_QTY);
         /** Добавляем общии расходы */
         spending += getExes();
@@ -250,6 +276,8 @@ public class Unit {
         spending /= 30;
         /** Списываем расходы*/
         cashMinus(spending);
+        /** Добавляем расходы к стоимости стекла*/
+        glassCashPlus(spending);
         /** Обновить значения в базе данных*/
         update();
     }
@@ -259,24 +287,21 @@ public class Unit {
 
     /** Класс товара. */
     class Goods{
-        int mainIndex;
-        int cash;
-        int glass;
-        int dividends;
+        private int mainIndex;
+        private int cash;
+        private int glass;
+        private int dividends;
+        private float price;
+        private float priceUp;
 
 
-        int unitIndex;
+        private int unitIndex;
 
-        Goods(){}
-
-        /** Конструктор товара.
-         * @param mainIndex Индех фирмы которой отправляется товар.
-         * @param cash Сумма стоимости товара.
-         * @param glass Вес стекла.  */
-        Goods(int mainIndex, int cash, int glass){
-            this.mainIndex = mainIndex;
-            this.cash = cash;
+        Goods(int glass, int cash, int priceUp){
             this.glass = glass;
+            this.cash = cash;
+            price = (float)cash / glass;
+            this.priceUp = priceUp;
         }
 
         /** Получить индекс Main

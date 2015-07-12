@@ -13,7 +13,7 @@ import com.konst.glass.provider.VendorTable;
 /**
  * Created by Kostya on 09.05.2015.
  */
-public class VendorListActivity extends ListActivity implements View.OnLongClickListener{
+public class VendorListActivity extends ListActivity implements View.OnLongClickListener {
 
     ListView listVendor;
     ImageView buttonNewVendor;
@@ -26,13 +26,13 @@ public class VendorListActivity extends ListActivity implements View.OnLongClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vendor_list);
 
-        buttonNewVendor = (ImageView)findViewById(R.id.buttonNewVendor);
+        buttonNewVendor = (ImageView) findViewById(R.id.buttonNewVendor);
         buttonNewVendor.setOnLongClickListener(this);
 
         setupListVendor();
     }
 
-    void setupListVendor(){
+    void setupListVendor() {
         listVendor = getListView();
         Cursor cursor = new VendorTable(this).getAllEntries();
         if (cursor == null) {
@@ -50,11 +50,11 @@ public class VendorListActivity extends ListActivity implements View.OnLongClick
         return getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME + " ASC");
     }*/
 
-    AdapterView.OnItemClickListener listItemListener =  new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener listItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent();
-            intent.putExtra(VendorTable.KEY_ID, (int)l);
+            intent.putExtra(VendorTable.KEY_ID, (int) l);
             setResult(RESULT_OK, intent);
             finish();
         }

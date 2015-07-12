@@ -12,22 +12,31 @@ import android.text.TextUtils;
 
 /**
  * Контент провайдер.
+ *
  * @author Kostya
  */
 public class GlassBaseProvider extends ContentProvider {
 
-    /** Имя базы данных */
+    /**
+     * Имя базы данных
+     */
     private static final String DATABASE_NAME = "glass.db";
-    /** Версия базы данных */
+    /**
+     * Версия базы данных
+     */
     private static final int DATABASE_VERSION = 1;
-    /** Полномочия */
+    /**
+     * Полномочия
+     */
     static final String AUTHORITY = "com.konst.glass.glass";
     private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
 
     private static final int ALL_ROWS = 1;
     private static final int SINGLE_ROWS = 2;
 
-    /** Лист таблиц базы данных. */
+    /**
+     * Лист таблиц базы данных.
+     */
     private enum TABLE_LIST {
         CITY_LIST,
         CITY_ID,
@@ -66,7 +75,9 @@ public class GlassBaseProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, VendorTable.TABLE + "/#", TABLE_LIST.VENDOR_ID.ordinal());
     }
 
-    /** Получить таблицу по Uri.
+    /**
+     * Получить таблицу по Uri.
+     *
      * @param uri таблици.
      * @return Таблицу.
      */
@@ -112,10 +123,12 @@ public class GlassBaseProvider extends ContentProvider {
     }
 
 
-    /** Выполнить запрос к таблице данных.
-     * @param uri Uri таблици.
-     * @param projection Имена столбцов если null тогда все.
-     * @param selection Условия выбора
+    /**
+     * Выполнить запрос к таблице данных.
+     *
+     * @param uri           Uri таблици.
+     * @param projection    Имена столбцов если null тогда все.
+     * @param selection     Условия выбора
      * @param selectionArgs
      * @param sort
      * @return
@@ -127,11 +140,11 @@ public class GlassBaseProvider extends ContentProvider {
         switch (TABLE_LIST.values()[uriMatcher.match(uri)]) {
             case CITY_LIST: // общий Uri
                 queryBuilder.setTables(CityTable.TABLE);
-            break;
+                break;
             case CITY_ID: // Uri с ID
                 queryBuilder.setTables(CityTable.TABLE);
                 queryBuilder.appendWhere(BaseColumns._ID + '=' + uri.getLastPathSegment());
-            break;
+                break;
             case AREA_LIST: // общий Uri
                 queryBuilder.setTables(AreaTable.TABLE);
                 break;
@@ -329,7 +342,7 @@ public class GlassBaseProvider extends ContentProvider {
         switch (TABLE_LIST.values()[uriMatcher.match(uri)]) {
             case CITY_LIST: // общий Uri
                 updateCount = db.update(CityTable.TABLE, contentValues, where, whereArg);
-            break;
+                break;
             case CITY_ID:
                 id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(where)) {
@@ -338,7 +351,7 @@ public class GlassBaseProvider extends ContentProvider {
                     where = where + " AND " + BaseColumns._ID + " = " + id;
                 }
                 updateCount = db.update(CityTable.TABLE, contentValues, where, whereArg);
-            break;
+                break;
             case AREA_LIST: // общий Uri
                 updateCount = db.update(AreaTable.TABLE, contentValues, where, whereArg);
                 break;
@@ -443,7 +456,7 @@ public class GlassBaseProvider extends ContentProvider {
             ContentValues contentValues = new ContentValues();
             contentValues.put(MainTable.KEY_NAME, "Glass");
             contentValues.put(MainTable.KEY_CASH, 100000);
-            db.insert(MainTable.TABLE,null,contentValues);
+            db.insert(MainTable.TABLE, null, contentValues);
             /*-----------------------------------------------*/
         }
 

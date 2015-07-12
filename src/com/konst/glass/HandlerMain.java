@@ -8,6 +8,8 @@ import android.os.Handler;
 public abstract class HandlerMain extends Handler {
 
     public abstract int messageCash(int cash);
+
     public abstract int messageSippingGlass(float glass, int sum);
+
     public abstract int messageSippingGlass(Unit.Goods goods);
 }

@@ -34,14 +34,14 @@ public class VendorActivity extends Activity {
         setContentView(R.layout.vendor);
 
         vendorTable = new VendorTable(this);
-        editTextCash = (EditText)findViewById(R.id.editTextCash);
-        buttonSaved = (Button)findViewById(R.id.buttonSave);
+        editTextCash = (EditText) findViewById(R.id.editTextCash);
+        buttonSaved = (Button) findViewById(R.id.buttonSave);
         buttonSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     values.put(VendorTable.KEY_CASH, Integer.valueOf(editTextCash.getText().toString()));
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     values.put(VendorTable.KEY_CASH, 0);
                 }
                 if (uri == null)
@@ -60,7 +60,7 @@ public class VendorActivity extends Activity {
         if (values==null)
             finish();*/
 
-        spinnerContact = (Spinner)findViewById(R.id.spinnerContact);
+        spinnerContact = (Spinner) findViewById(R.id.spinnerContact);
         setupSpinnerContact();
 
     }
@@ -81,13 +81,14 @@ public class VendorActivity extends Activity {
     AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            values.put(VendorTable.KEY_CONTACT_ID, (int)l);
+            values.put(VendorTable.KEY_CONTACT_ID, (int) l);
             TextView textView = (TextView) view.findViewById(R.id.text1);
             values.put(VendorTable.KEY_NAME, textView.getText().toString());
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) { }
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
 
     };
 

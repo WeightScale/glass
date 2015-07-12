@@ -35,6 +35,7 @@
                   android:screenOrientation="portrait"
                   android:configChanges="orientation">
         </activity>
-        <provider android:authorities="com.konst.glass.glass" android:exported="false" android:name=".provider.GlassBaseProvider"/>
+        <provider android:authorities="com.konst.glass.glass" android:exported="false"
+                  android:name=".provider.GlassBaseProvider"/>
     </application>
 </manifest> 

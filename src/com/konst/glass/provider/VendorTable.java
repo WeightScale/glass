@@ -53,7 +53,7 @@ public class VendorTable {
     }
 
     public Cursor getAllEntries() {
-        return mContext.getContentResolver().query(CONTENT_URI, null, null, null,null);
+        return mContext.getContentResolver().query(CONTENT_URI, null, null, null, null);
     }
 
     public Cursor getItem(Uri uri) {
@@ -65,7 +65,7 @@ public class VendorTable {
         return contentResolver.query(uri, null, null, null, null);
     }
 
-    public ContentValues getEntry(int _rowIndex){
+    public ContentValues getEntry(int _rowIndex) {
         Cursor cursor = getItem(_rowIndex);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         Map<String, ContentValues> map = mQueryMap.getRows();
@@ -89,14 +89,14 @@ public class VendorTable {
         }
     }
 
-    public String getKeyName(int _rowIndex){
+    public String getKeyName(int _rowIndex) {
         Uri uri = ContentUris.withAppendedId(CONTENT_URI, _rowIndex);
         try {
             Cursor cursor = getItem(uri);
             ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
             ContentValues values = mQueryMap.getValues(uri.getLastPathSegment());
             return values.getAsString(KEY_NAME);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "null";
         }
     }

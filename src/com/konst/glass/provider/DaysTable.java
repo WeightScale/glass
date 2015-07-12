@@ -10,7 +10,9 @@ import android.provider.BaseColumns;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/** таблица дней.
+/**
+ * таблица дней.
+ *
  * @author Kostya
  */
 public class DaysTable {
@@ -47,7 +49,7 @@ public class DaysTable {
     }
 
     public Cursor getAllEntries() {
-        return mContext.getContentResolver().query(CONTENT_URI, null, null, null,null);
+        return mContext.getContentResolver().query(CONTENT_URI, null, null, null, null);
     }
 
 }

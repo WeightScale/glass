@@ -12,6 +12,7 @@ import com.konst.glass.provider.CityTable;
 import com.konst.glass.provider.DaysTable;
 import com.konst.glass.provider.MainTable;
 import com.konst.glass.provider.UnitTable;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -30,13 +31,13 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         mainTable = new MainTable(this);
         mainId = mainTable.getEntry("Glass");
 
-        buttonNewUnit = (Button)findViewById(R.id.buttonNewUnit);
+        buttonNewUnit = (Button) findViewById(R.id.buttonNewUnit);
         buttonNewUnit.setOnClickListener(this);
-        buttonNewDay = (Button)findViewById(R.id.buttonNewDay);
+        buttonNewDay = (Button) findViewById(R.id.buttonNewDay);
         buttonNewDay.setOnClickListener(this);
-        buttonNewMonth = (Button)findViewById(R.id.buttonMonth);
+        buttonNewMonth = (Button) findViewById(R.id.buttonMonth);
         buttonNewMonth.setOnClickListener(this);
-        buttonOpenCity = (Button)findViewById(R.id.buttonOpenCity);
+        buttonOpenCity = (Button) findViewById(R.id.buttonOpenCity);
         buttonOpenCity.setOnClickListener(this);
 
         /** Создаем таймер 30 раз по 1000 милисекунд*/
@@ -49,7 +50,9 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
     }
 
 
-    /** Обработка нового дня */
+    /**
+     * Обработка нового дня
+     */
     void newDay() {
         /** Создаем новый день*/
         Uri uriDay = new DaysTable(getApplicationContext()).insertNewEntry();
@@ -58,7 +61,7 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         /** Контейнер городов у которых есть площадки*/
         Map<String, ContentValues> cities = cityTable.getValuesIfUnits();
         /** Цикл обработки городов*/
-        for (Map.Entry<String, ContentValues> entryCity : cities.entrySet()){
+        for (Map.Entry<String, ContentValues> entryCity : cities.entrySet()) {
             /** Обновляес реальный приход и получаем значения для города*/
             ContentValues valuesCity = cityTable.updateGReal(entryCity);
             /** Экземпляр таблици площадок*/
@@ -66,7 +69,7 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
             /** Контейнер площадок со значениями*/
             Map<String, ContentValues> units = unitTable.getEntriesToCity(Integer.valueOf(entryCity.getKey()));
             /** Цикл обработки площадок*/
-            for (Map.Entry<String,ContentValues> entryUnit : units.entrySet()){
+            for (Map.Entry<String, ContentValues> entryUnit : units.entrySet()) {
                 /** Эземпляр площадки*/
                 Unit unit = new Unit(this, entryUnit, valuesCity, handlerMain);
                 /** Обработать задание покупки стекла*/
@@ -86,7 +89,7 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
 
     @Override
     public void run() {
-        while (true){
+        while (true) {
 //            Uri uriDay = new DaysTable(this).insertNewEntry();
 //            Cursor cursor = new UnitTable(this).getAllEntries();
 //            ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
@@ -96,23 +99,27 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
 //                unit.buyGlass();
 //                unit.saleGlass();
 //            }
-            try {  TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) {  e.printStackTrace(); }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.buttonNewDay:
                 newDay();
                 //timerDay.onStart();
-            break;
+                break;
             case R.id.buttonMonth:
                 timerDay.onStart();
-            break;
+                break;
             case R.id.buttonNewUnit:
                 startActivity(new Intent(getApplicationContext(), UnitActivity.class));
-            break;
+                break;
             case R.id.buttonOpenCity:
                 startActivity(new Intent(getApplicationContext(), CityListActivity.class));
                 break;
@@ -126,9 +133,9 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         public int messageCash(int cash) {
             int mainCash = mainTable.getCash(mainId);
             //if (mainCash > cash){
-                mainCash -= cash;
-                mainTable.updateCash(mainId, mainCash);
-                return cash;
+            mainCash -= cash;
+            mainTable.updateCash(mainId, mainCash);
+            return cash;
             //}
             //return 0;
         }
@@ -152,24 +159,33 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
         }
     };
 
-    /** Таймер для эмитации дней */
+    /**
+     * Таймер для эмитации дней
+     */
     public class TimerDay extends CountDownTimer {
         private boolean start = false;
 
-        /** Экземпляр таймера.
-         * @param millisInFuture Время между интервалами в милисекундах.
-         * @param countDownInterval Количество интервалов.  */
+        /**
+         * Экземпляр таймера.
+         *
+         * @param millisInFuture    Время между интервалами в милисекундах.
+         * @param countDownInterval Количество интервалов.
+         */
         public TimerDay(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
 
-        /** Запускаем таимер */
+        /**
+         * Запускаем таимер
+         */
         public void onStart() {
             start = true;
             start();
         }
 
-        /** Остановка таймера */
+        /**
+         * Остановка таймера
+         */
         @Override
         public void onFinish() {
             start = false;
@@ -180,15 +196,20 @@ public class MyActivity extends Activity implements Runnable, View.OnClickListen
             super.finalize();
         }
 
-        /** Тик через каждые millisInFuture
-         * @param millisUntilFinished Сколько осталось времени в милисекундах.  */
+        /**
+         * Тик через каждые millisInFuture
+         *
+         * @param millisUntilFinished Сколько осталось времени в милисекундах.
+         */
         public void onTick(long millisUntilFinished) {
             /** Вызываем новый день */
             newDay();
 
         }
 
-        boolean isStart() { return start;  }
+        boolean isStart() {
+            return start;
+        }
 
     }
 }

@@ -14,46 +14,80 @@ public class UnitTable {
     private final Context mContext;
     final ContentResolver contentResolver;
 
-    /** Имя таблици */
+    /**
+     * Имя таблици
+     */
     public static final String TABLE = "unit";
 
-    public static final String KEY_ID           = BaseColumns._ID;
-    /** Дата создания площадки. */
-    public static final String KEY_DATE         = "date";
-    /** Индекс записи таблица city */
-    public static final String KEY_CITY_ID      = "cityId";
-    /** индекс записи таблица vendor */
-    public static final String KEY_VENDOR_ID    = "vendorId";
+    public static final String KEY_ID = BaseColumns._ID;
+    /**
+     * Дата создания площадки.
+     */
+    public static final String KEY_DATE = "date";
+    /**
+     * Индекс записи таблица city
+     */
+    public static final String KEY_CITY_ID = "cityId";
+    /**
+     * индекс записи таблица vendor
+     */
+    public static final String KEY_VENDOR_ID = "vendorId";
     //public static final String KEY_LINK_UNIT_ID = "linkUnitId";     //индекс записи таблица linkUnit
-    /** Количество дней жизни площадки */
-    public static final String KEY_DAYS         = "days";
-    /** Количество месяцев жизни площадки */
-    public static final String KEY_MONTHS       = "months";
-    /** Количество дней жизни площадки */
-    public static final String KEY_YEARS        = "years";
-    /** Количество стекла на площадке */
-    public static final String KEY_GLASS        = "glass";
-    /** Стоимость стекла на площадке */
-    public static final String KEY_GLASS_CASH   = "glassCash";
-    /** Сумма денег на площадке */
-    public static final String KEY_CASH         = "cash";
+    /**
+     * Количество дней жизни площадки
+     */
+    public static final String KEY_DAYS = "days";
+    /**
+     * Количество месяцев жизни площадки
+     */
+    public static final String KEY_MONTHS = "months";
+    /**
+     * Количество дней жизни площадки
+     */
+    public static final String KEY_YEARS = "years";
+    /**
+     * Количество стекла на площадке
+     */
+    public static final String KEY_GLASS = "glass";
+    /**
+     * Стоимость стекла на площадке
+     */
+    public static final String KEY_GLASS_CASH = "glassCash";
+    /**
+     * Сумма денег на площадке
+     */
+    public static final String KEY_CASH = "cash";
     /** Расходы на площадке.
      *  Включается стоимость стекла, расходы в месяц  */
     //public static final String KEY_SPENDING     = "spending";
-    /** Норма отгрузки в килограмах */
-    public static final String KEY_RATE         = "rate";
-    /** Расходы на отгрузку */
-    public static final String KEY_RATE_PRICE   = "ratePrice";
-    /** Общии расходы в месяц */
-    public static final String KEY_EXES         = "exes";
-    /** Вклад денег в площадку Main */
+    /**
+     * Норма отгрузки в килограмах
+     */
+    public static final String KEY_RATE = "rate";
+    /**
+     * Расходы на отгрузку
+     */
+    public static final String KEY_RATE_PRICE = "ratePrice";
+    /**
+     * Общии расходы в месяц
+     */
+    public static final String KEY_EXES = "exes";
+    /**
+     * Вклад денег в площадку Main
+     */
     public static final String KEY_DEPOSIT_MAIN = "depositMain";
-    /** Вклад денег в площадку Unit */
+    /**
+     * Вклад денег в площадку Unit
+     */
     public static final String KEY_DEPOSIT_UNIT = "depositUnit";
-    /** Прочии данные */
-    public static final String KEY_DATA1        = "data1";
-    /** Прочии данные  */
-    public static final String KEY_DATA2        = "data2";
+    /**
+     * Прочии данные
+     */
+    public static final String KEY_DATA1 = "data1";
+    /**
+     * Прочии данные
+     */
+    public static final String KEY_DATA2 = "data2";
 
     private static final String[] All_COLUMN_TABLE = {
             KEY_ID,
@@ -75,7 +109,9 @@ public class UnitTable {
             KEY_DATA1,
             KEY_DATA2};
 
-    /** Создать таблицу. */
+    /**
+     * Создать таблицу.
+     */
     public static final String TABLE_CREATE = "create table "
             + TABLE + " ("
             + KEY_ID + " integer primary key autoincrement, "
@@ -102,8 +138,11 @@ public class UnitTable {
 
     private static final Uri CONTENT_URI = Uri.parse("content://" + GlassBaseProvider.AUTHORITY + '/' + TABLE);
 
-    /** Конструктор таблици площадки.
-     * @param context Контекст. */
+    /**
+     * Конструктор таблици площадки.
+     *
+     * @param context Контекст.
+     */
     public UnitTable(Context context) {
         mContext = context;
         contentResolver = mContext.getContentResolver();
@@ -116,19 +155,25 @@ public class UnitTable {
         return contentResolver.insert(CONTENT_URI, contentValues);
     }
 
-    /** Вставить новую запись в таблицу.
+    /**
+     * Вставить новую запись в таблицу.
+     *
      * @param values Значения для добавления.
-     * @return Uri добавленой записи. */
+     * @return Uri добавленой записи.
+     */
     public Uri insertNewEntry(ContentValues values) {
         Date date = new Date();
         values.put(KEY_DATE, new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(date));
         return contentResolver.insert(CONTENT_URI, values);
     }
 
-    /** Обновить запись в таблице.
+    /**
+     * Обновить запись в таблице.
+     *
      * @param _rowIndex Индекс записи.
-     * @param values Значения для обновления
-     * @return true - Запись таблици обновлена. */
+     * @param values    Значения для обновления
+     * @return true - Запись таблици обновлена.
+     */
     public boolean updateEntry(int _rowIndex, ContentValues values) {
         Uri uri = ContentUris.withAppendedId(CONTENT_URI, _rowIndex);
         try {
@@ -138,10 +183,13 @@ public class UnitTable {
         }
     }
 
-    /** Обновить запись в таблице.
-     * @param uri Uri записи.
+    /**
+     * Обновить запись в таблице.
+     *
+     * @param uri    Uri записи.
      * @param values Значения для обновления
-     * @return true - Запись таблици обновлена. */
+     * @return true - Запись таблици обновлена.
+     */
     public boolean updateEntry(Uri uri, ContentValues values) {
         try {
             return contentResolver.update(uri, values, null, null) > 0;
@@ -150,26 +198,35 @@ public class UnitTable {
         }
     }
 
-    /** Получить все записи.
-     * @return Курсор с записями. */
+    /**
+     * Получить все записи.
+     *
+     * @return Курсор с записями.
+     */
     public Cursor getAllEntries() {
         return contentResolver.query(CONTENT_URI, null, null, null, null);
     }
 
-    /** Получить записи по отбору города.
+    /**
+     * Получить записи по отбору города.
+     *
      * @param cityId Индекс города.
-     * @return Значения в Map контейнере. */
+     * @return Значения в Map контейнере.
+     */
     public Map<String, ContentValues> getEntriesToCity(int cityId) {
         Cursor cursor = contentResolver.query(CONTENT_URI, null, KEY_CITY_ID + " = " + cityId, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         return mQueryMap.getRows();
     }
 
-    /** Получить запись.
+    /**
+     * Получить запись.
+     *
      * @param uri Uri записи.
-     * @return Курсор записи. */
+     * @return Курсор записи.
+     */
     public Cursor getItem(Uri uri) {
-            return contentResolver.query(uri, null, null, null, null);
+        return contentResolver.query(uri, null, null, null, null);
     }
 
 

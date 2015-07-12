@@ -3,12 +3,12 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:orientation="vertical">
     <TextView
-              android:id="@+id/text1"
-              android:singleLine="true"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:textSize="@dimen/text_large"
-              android:textColor="@android:color/black" android:gravity="left|center_horizontal"/>
+            android:id="@+id/text1"
+            android:singleLine="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_large"
+            android:textColor="@android:color/black" android:gravity="left|center_horizontal"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"

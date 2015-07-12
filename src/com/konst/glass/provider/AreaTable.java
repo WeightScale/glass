@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/** Таблица областей городоа.
- *  @author Kostya
+/**
+ * Таблица областей городоа.
+ *
+ * @author Kostya
  */
 public class AreaTable {
 
@@ -30,7 +32,6 @@ public class AreaTable {
 
     public static final String KEY_ID = BaseColumns._ID;
     public static final String KEY_AREA = "area";
-
 
 
     private static final String[] All_COLUMN_TABLE = {
@@ -51,7 +52,7 @@ public class AreaTable {
 
 
     public Cursor getAllEntries() {
-        return contentResolver.query(CONTENT_URI, null, null, null,null);
+        return contentResolver.query(CONTENT_URI, null, null, null, null);
     }
 
 }

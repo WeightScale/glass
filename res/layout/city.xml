@@ -5,9 +5,9 @@
               android:layout_height="match_parent">
 
     Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerContact"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/spinnerContact"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:id="@+id/edit_k_population" android:layout_weight="1" android:inputType="none|numberSigned|numberDecimal"/>
+                android:id="@+id/edit_k_population" android:layout_weight="1"
+                android:inputType="none|numberSigned|numberDecimal"/>
     </LinearLayout>
     <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
                   android:layout_height="wrap_content">
@@ -35,7 +36,8 @@
     </LinearLayout>
     <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
                   android:layout_height="wrap_content">
-        <TextView android:layout_width="match_parent" android:layout_height="fill_parent" android:text="растраты реклама"
+        <TextView android:layout_width="match_parent" android:layout_height="fill_parent"
+                  android:text="растраты реклама"
                   android:id="@+id/textView9" android:textSize="@dimen/text_large" android:gravity="left|center"
                   android:singleLine="true" android:layout_weight="1"/>
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"

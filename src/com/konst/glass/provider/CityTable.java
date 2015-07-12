@@ -15,7 +15,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-/** Таблица городов
+/**
+ * Таблица городов
+ *
  * @author Kostya
  */
 public class CityTable {
@@ -26,31 +28,55 @@ public class CityTable {
 
     public static final String TABLE = "city";
 
-    public static final String KEY_ID           = BaseColumns._ID;
-    /** Название города */
-    public static final String KEY_CITY         = "city";
-    /** Область города */
-    public static final String KEY_AREA         = "area";
-    /** Количество созданых площадок */
-    public static final String KEY_UNIT_QTY     = "unitQty";
-    /** Население */
-    public static final String KEY_POPULATION   = "population";
-    /** Норма прихода в колограмах на человека в месяц */
+    public static final String KEY_ID = BaseColumns._ID;
+    /**
+     * Название города
+     */
+    public static final String KEY_CITY = "city";
+    /**
+     * Область города
+     */
+    public static final String KEY_AREA = "area";
+    /**
+     * Количество созданых площадок
+     */
+    public static final String KEY_UNIT_QTY = "unitQty";
+    /**
+     * Население
+     */
+    public static final String KEY_POPULATION = "population";
+    /**
+     * Норма прихода в колограмах на человека в месяц
+     */
     public static final String KEY_K_POPULATION = "kPopulation";
-    /** Кол во реального прихода в городе кг */
-    public static final String KEY_G_REAL       = "gReal";
-    /** Сумма расхода на рекламу в месяц */
-    public static final String KEY_AD_USED      = "adUsed";
-    /** Сумма расхода на рекламу необходимая для максимального эфекта в месяц */
-    public static final String KEY_AD_MAX       = "adMax";
-    /** Цена закупки стекла за тонну */
-    public static final String KEY_PRICE_DOWN   = "priceDown";
-    /** Цена продажи стекла за тонну */
-    public static final String KEY_PRICE_UP     = "priceUP";
-    /** Коэфициент сервиса (логистика удобство прочее) */
-    public static final String KEY_K_SERVICE    = "kService";
-    /** Сумма сервиса необходимая для максимального эфекта в месяц */
-    public static final String KEY_P_SERVICE    = "pService";
+    /**
+     * Кол во реального прихода в городе кг
+     */
+    public static final String KEY_G_REAL = "gReal";
+    /**
+     * Сумма расхода на рекламу в месяц
+     */
+    public static final String KEY_AD_USED = "adUsed";
+    /**
+     * Сумма расхода на рекламу необходимая для максимального эфекта в месяц
+     */
+    public static final String KEY_AD_MAX = "adMax";
+    /**
+     * Цена закупки стекла за тонну
+     */
+    public static final String KEY_PRICE_DOWN = "priceDown";
+    /**
+     * Цена продажи стекла за тонну
+     */
+    public static final String KEY_PRICE_UP = "priceUP";
+    /**
+     * Коэфициент сервиса (логистика удобство прочее)
+     */
+    public static final String KEY_K_SERVICE = "kService";
+    /**
+     * Сумма сервиса необходимая для максимального эфекта в месяц
+     */
+    public static final String KEY_P_SERVICE = "pService";
 
     private static final String[] All_COLUMN_TABLE = {
             KEY_ID,
@@ -90,35 +116,43 @@ public class CityTable {
         contentResolver = mContext.getContentResolver();
     }
 
-    /** Получить города по условию населения
+    /**
+     * Получить города по условию населения
+     *
      * @param population Население в человеках.
      * @return Курсор с данными.
      */
     public Cursor getValidCity(int population) {
-        return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_POPULATION + "> "+ population + " or " + KEY_POPULATION + "= " + population, null, KEY_POPULATION + " DESC ");
+        return contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_POPULATION + "> " + population + " or " + KEY_POPULATION + "= " + population, null, KEY_POPULATION + " DESC ");
     }
 
-    /** Получить города с открытыми площадками.
+    /**
+     * Получить города с открытыми площадками.
+     *
      * @return Данные городов в Map контейнере.
      */
-    public Map<String, ContentValues>  getValuesIfUnits(){
+    public Map<String, ContentValues> getValuesIfUnits() {
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, KEY_UNIT_QTY + " > 0 ", null, KEY_POPULATION + " DESC ");
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         return mQueryMap.getRows();
     }
 
-    /** Получить данные города.
+    /**
+     * Получить данные города.
+     *
      * @param _rowIndex Индекс города.
      * @return Данные города в Map контейнере
      */
-    public ContentValues getEntry(int _rowIndex){
+    public ContentValues getEntry(int _rowIndex) {
         Cursor cursor = contentResolver.query(CONTENT_URI, All_COLUMN_TABLE, null, null, null);
         ContentQueryMap mQueryMap = new ContentQueryMap(cursor, BaseColumns._ID, true, null);
         Map<String, ContentValues> map = mQueryMap.getRows();
         return map.get(String.valueOf(_rowIndex));
     }
 
-    /** Получить запись города
+    /**
+     * Получить запись города
+     *
      * @param _rowIndex Индекс города.
      * @return Курсор.
      */
@@ -127,28 +161,32 @@ public class CityTable {
         return contentResolver.query(uri, null, null, null, null);
     }
 
-    /** Получить сгруперованые данные по области.
+    /**
+     * Получить сгруперованые данные по области.
+     *
      * @param name Имя области.
      * @return Курсор с записями.
      */
     public Cursor getGroupEntries(String name) {
-        return mContext.getContentResolver().query(CONTENT_URI, new String[]{KEY_ID,KEY_AREA}, name+" IS NOT NULL) GROUP BY ("+name, null,null);
+        return mContext.getContentResolver().query(CONTENT_URI, new String[]{KEY_ID, KEY_AREA}, name + " IS NOT NULL) GROUP BY (" + name, null, null);
     }
 
-    /** Обновить запись реального прихода стекла для города
+    /**
+     * Обновить запись реального прихода стекла для города
+     *
      * @param entry
      * @return Значения города.
      */
-    public ContentValues updateGReal(Map.Entry<String, ContentValues> entry){
+    public ContentValues updateGReal(Map.Entry<String, ContentValues> entry) {
         ContentValues values = entry.getValue();
-        float kAd = (float)values.getAsInteger(KEY_AD_USED) / (float)values.getAsInteger(KEY_AD_MAX);           //коэ. реклама
-        float kPrice = (float)values.getAsInteger(KEY_PRICE_DOWN) / (float)values.getAsInteger(KEY_PRICE_UP);   //коэф. покупки
-        int glassReal = (int)(values.getAsInteger(KEY_POPULATION) * values.getAsFloat(KEY_K_POPULATION));
+        float kAd = (float) values.getAsInteger(KEY_AD_USED) / (float) values.getAsInteger(KEY_AD_MAX);           //коэ. реклама
+        float kPrice = (float) values.getAsInteger(KEY_PRICE_DOWN) / (float) values.getAsInteger(KEY_PRICE_UP);   //коэф. покупки
+        int glassReal = (int) (values.getAsInteger(KEY_POPULATION) * values.getAsFloat(KEY_K_POPULATION));
         glassReal *= kAd;
-        glassReal *= (kPrice + values.getAsFloat(KEY_K_SERVICE))/2;
+        glassReal *= (kPrice + values.getAsFloat(KEY_K_SERVICE)) / 2;
         //ContentValues gReal = new ContentValues();
         values.put(KEY_G_REAL, glassReal);
-        if (updateEntry(Integer.valueOf(entry.getKey()),values))
+        if (updateEntry(Integer.valueOf(entry.getKey()), values))
             return values;
         return null;
     }
@@ -162,11 +200,13 @@ public class CityTable {
         }
     }
 
-    /** Добавить записи в таблицу из файла.
-     * @param db База данных.
+    /**
+     * Добавить записи в таблицу из файла.
+     *
+     * @param db   База данных.
      * @param file Имя файла.
      */
-    public void addCityFromFile(SQLiteDatabase db, String file){
+    public void addCityFromFile(SQLiteDatabase db, String file) {
         AssetManager manager = mContext.getAssets();
         InputStream input = null;
         String cityLine = new String();
@@ -176,11 +216,11 @@ public class CityTable {
             String[] columnNames = br.readLine().split("\t", -1);
             HashMap<Integer, ContentValues> city = new HashMap<Integer, ContentValues>();
             HashMap<String, Long> area = new HashMap<String, Long>();
-            while ((cityLine = br.readLine()) != null){
+            while ((cityLine = br.readLine()) != null) {
                 ContentValues contentValues = new ContentValues();
                 String[] cityValues = cityLine.split("\t", -1);
-                for (int i=0; i < columnNames.length; i++) {
-                    if (columnNames[i].equals(KEY_K_POPULATION)){
+                for (int i = 0; i < columnNames.length; i++) {
+                    if (columnNames[i].equals(KEY_K_POPULATION)) {
                         contentValues.put(KEY_K_POPULATION, Float.valueOf(cityValues[i].trim()));
                         continue;
                     }
@@ -197,7 +237,8 @@ public class CityTable {
                 db.insert(TABLE, null, contentValues);
             }
 
-        } catch (IOException e) { }
+        } catch (IOException e) {
+        }
     }
 
     public void addSystemRow(SQLiteDatabase db) {
@@ -211,22 +252,22 @@ public class CityTable {
             String[] columnNames = br.readLine().split("\t", -1);
             HashMap<Integer, ContentValues> city = new HashMap<Integer, ContentValues>();
             HashMap<String, Long> area = new HashMap<String, Long>();
-            while ((cityLine = br.readLine()) != null){
+            while ((cityLine = br.readLine()) != null) {
                 ContentValues contentValues = new ContentValues();
                 String[] cityValues = cityLine.split("\t", -1);
-                for (int i=0; i < columnNames.length; i++){
-                    if(columnNames[i].equals(KEY_POPULATION)){
+                for (int i = 0; i < columnNames.length; i++) {
+                    if (columnNames[i].equals(KEY_POPULATION)) {
                         contentValues.put(KEY_POPULATION, Integer.valueOf(cityValues[i].trim()));
                         continue;
-                    }else if(columnNames[i].equals(KEY_AREA)){
-                        if(!area.containsKey(cityValues[i].trim())){
+                    } else if (columnNames[i].equals(KEY_AREA)) {
+                        if (!area.containsKey(cityValues[i].trim())) {
                             ContentValues values = new ContentValues();
                             values.put(KEY_AREA, cityValues[i].trim());
                             long row = db.insert(AreaTable.TABLE, null, values);
                             contentValues.put(KEY_AREA, String.valueOf(row));
-                            area.put(cityValues[i].trim(),row);
+                            area.put(cityValues[i].trim(), row);
                             continue;
-                        }else {
+                        } else {
                             contentValues.put(KEY_AREA, area.get(cityValues[i].trim()));
                             continue;
                         }

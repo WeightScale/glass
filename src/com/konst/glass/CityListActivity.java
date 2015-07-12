@@ -18,7 +18,7 @@ import com.konst.glass.provider.VendorTable;
 /**
  * Created by Kostya on 09.05.2015.
  */
-public class CityListActivity extends ListActivity implements View.OnLongClickListener{
+public class CityListActivity extends ListActivity implements View.OnLongClickListener {
 
     ListView listCity;
     //ImageView buttonNewVendor;
@@ -37,14 +37,14 @@ public class CityListActivity extends ListActivity implements View.OnLongClickLi
         setupListCity();
     }
 
-    void setupListCity(){
+    void setupListCity() {
         listCity = getListView();
         Cursor cursor = cityTable.getValidCity(50000);
         if (cursor == null) {
             return;
         }
         String[] columns = {CityTable.KEY_CITY, CityTable.KEY_AREA, CityTable.KEY_POPULATION};
-        int[] to = {R.id.text1, R.id.text2,R.id.text3};
+        int[] to = {R.id.text1, R.id.text2, R.id.text3};
         SimpleCursorAdapter cityAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.city_spinner, cursor, columns, to);
         setListAdapter(cityAdapter);
         listCity.setOnItemClickListener(listItemListener);
@@ -55,7 +55,7 @@ public class CityListActivity extends ListActivity implements View.OnLongClickLi
         return getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME + " ASC");
     }*/
 
-    AdapterView.OnItemClickListener listItemListener =  new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener listItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent(CityListActivity.this, CityActivity.class);

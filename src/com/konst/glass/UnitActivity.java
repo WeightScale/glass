@@ -30,13 +30,13 @@ public class UnitActivity extends Activity implements View.OnClickListener {
     CityTable cityTable;
     LinkUnitTable linkUnitTable;
     Button buttonAddUnit, buttonAddCash;
-    EditText editTextCash, editTextRate, editTextRatePrice,editTextExes, editTextMainDeposit;
+    EditText editTextCash, editTextRate, editTextRatePrice, editTextExes, editTextMainDeposit;
     TextView textViewVendor;
     Spinner spinnerCity;
-    ContentValues valuesUnit  = new ContentValues();
-    ContentValues valuesCity  = new ContentValues();
-    ContentValues valuesLink  = new ContentValues();
-    ContentValues valuesVendor  = new ContentValues();
+    ContentValues valuesUnit = new ContentValues();
+    ContentValues valuesCity = new ContentValues();
+    ContentValues valuesLink = new ContentValues();
+    ContentValues valuesVendor = new ContentValues();
     int unitId;
 
     int REQUEST_SELECT_VENDOR = 1;
@@ -58,27 +58,27 @@ public class UnitActivity extends Activity implements View.OnClickListener {
         //Map<String, ContentValues> map = mQueryMap.getRows();
         //valuesUnit = map.get(uri.getLastPathSegment());
         //if (valuesUnit != null)
-            //unitId = Integer.valueOf(uri.getLastPathSegment());
+        //unitId = Integer.valueOf(uri.getLastPathSegment());
         //else
-            //finish();
+        //finish();
 
-        spinnerCity = (Spinner)findViewById(R.id.spinnerCity);
-        textViewVendor = (TextView)findViewById(R.id.textViewVendor);
+        spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
+        textViewVendor = (TextView) findViewById(R.id.textViewVendor);
         textViewVendor.setOnLongClickListener(vendorListener);
 
-        editTextRate = (EditText)findViewById(R.id.editTextRate);
+        editTextRate = (EditText) findViewById(R.id.editTextRate);
         editTextRate.addTextChangedListener(new GenericTextWatcher(editTextRate));
 
-        editTextRatePrice = (EditText)findViewById(R.id.editTextRatePrice);
+        editTextRatePrice = (EditText) findViewById(R.id.editTextRatePrice);
         editTextRatePrice.addTextChangedListener(new GenericTextWatcher(editTextRatePrice));
 
-        editTextExes = (EditText)findViewById(R.id.editTextExes);
+        editTextExes = (EditText) findViewById(R.id.editTextExes);
         editTextExes.addTextChangedListener(new GenericTextWatcher(editTextExes));
 
-        buttonAddCash = (Button)findViewById(R.id.buttonAddCash);
+        buttonAddCash = (Button) findViewById(R.id.buttonAddCash);
         buttonAddCash.setOnClickListener(this);
 
-        buttonAddUnit = (Button)findViewById(R.id.buttonAddUnit);
+        buttonAddUnit = (Button) findViewById(R.id.buttonAddUnit);
         buttonAddUnit.setOnClickListener(this);
 
         setupSpinner();
@@ -89,7 +89,7 @@ public class UnitActivity extends Activity implements View.OnClickListener {
         int i = map.size();*/
     }
 
-    void setupSpinner(){
+    void setupSpinner() {
         Cursor cursor = new CityTable(getApplicationContext()).getValidCity(50000);
         if (cursor.getCount() > 0) {
             String[] columns = {CityTable.KEY_CITY, CityTable.KEY_AREA, CityTable.KEY_POPULATION};
@@ -101,16 +101,17 @@ public class UnitActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    AdapterView.OnItemSelectedListener spinnerItemListener =  new AdapterView.OnItemSelectedListener() {
+    AdapterView.OnItemSelectedListener spinnerItemListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            valuesUnit.put(UnitTable.KEY_CITY_ID, (int)l);
-            valuesCity = cityTable.getEntry((int)l);
+            valuesUnit.put(UnitTable.KEY_CITY_ID, (int) l);
+            valuesCity = cityTable.getEntry((int) l);
 
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {}
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
     };
 
    /* View.OnClickListener listenerAddUnit = new View.OnClickListener() {
@@ -150,18 +151,18 @@ public class UnitActivity extends Activity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case RESULT_OK:
-                if(requestCode == REQUEST_SELECT_VENDOR){
-                    int vendorId = data.getIntExtra(VendorTable.KEY_ID,0);
+                if (requestCode == REQUEST_SELECT_VENDOR) {
+                    int vendorId = data.getIntExtra(VendorTable.KEY_ID, 0);
                     valuesVendor = vendorTable.getEntry(vendorId);
-                    if (vendorId !=0){
+                    if (vendorId != 0) {
                         valuesUnit.put(UnitTable.KEY_VENDOR_ID, vendorId);
                         textViewVendor.setText(vendorTable.getKeyName(valuesUnit.getAsInteger(UnitTable.KEY_VENDOR_ID)));
                     }
                 }
-            break;
+                break;
             case RESULT_CANCELED:
 
-            break;
+                break;
             default:
 
         }
@@ -169,7 +170,7 @@ public class UnitActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.buttonAddCash:
                 showDialog(1);
                 break;
@@ -186,51 +187,55 @@ public class UnitActivity extends Activity implements View.OnClickListener {
                 Uri uri = unitTable.insertNewEntry(valuesUnit);               //создаем новую запись в базе данных
                 new LinkUnitTable(getBaseContext()).insertNewEntry(Integer.valueOf(uri.getLastPathSegment()), valuesLink);
                 //unitTable.updateEntry(unitId, valuesUnit);
-                int unitQty = valuesCity.getAsInteger(CityTable.KEY_UNIT_QTY)+1;
+                int unitQty = valuesCity.getAsInteger(CityTable.KEY_UNIT_QTY) + 1;
                 valuesCity.put(CityTable.KEY_UNIT_QTY, unitQty);
                 cityTable.updateEntry(valuesUnit.getAsInteger(UnitTable.KEY_CITY_ID), valuesCity);
                 break;
         }
     }
 
-    private class GenericTextWatcher implements TextWatcher{
+    private class GenericTextWatcher implements TextWatcher {
 
         private View view;
+
         private GenericTextWatcher(View view) {
             this.view = view;
         }
 
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
         public void afterTextChanged(Editable editable) {
             String text = editable.toString();
-            switch(view.getId()){
+            switch (view.getId()) {
                 case R.id.editTextRate:
                     valuesUnit.put(UnitTable.KEY_RATE, setValueFloat(text, 1.0f));
-                break;
+                    break;
                 case R.id.editTextRatePrice:
                     valuesUnit.put(UnitTable.KEY_RATE_PRICE, setValueInt(text, 0));
-                break;
+                    break;
                 case R.id.editTextExes:
                     valuesUnit.put(UnitTable.KEY_EXES, setValueInt(text, 0));
-                break;
+                    break;
                 default:
             }
         }
 
-        int setValueInt(String text, int _default){
+        int setValueInt(String text, int _default) {
             try {
                 return Integer.valueOf(text);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 return _default;
             }
         }
 
-        float setValueFloat(String text, float _default){
+        float setValueFloat(String text, float _default) {
             try {
                 return Float.valueOf(text);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 return _default;
             }
         }
@@ -266,18 +271,18 @@ public class UnitActivity extends Activity implements View.OnClickListener {
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    EditText main = (EditText)dialog.findViewById(R.id.editDepositMain);
-                    EditText unit = (EditText)dialog.findViewById(R.id.editDepositUnit);
+                    EditText main = (EditText) dialog.findViewById(R.id.editDepositMain);
+                    EditText unit = (EditText) dialog.findViewById(R.id.editDepositUnit);
                     try {
                         valuesUnit.put(UnitTable.KEY_DEPOSIT_MAIN, Integer.valueOf(main.getText().toString()));
-                    }catch (Exception e){
-                        valuesUnit.put(UnitTable.KEY_DEPOSIT_MAIN,  0);
+                    } catch (Exception e) {
+                        valuesUnit.put(UnitTable.KEY_DEPOSIT_MAIN, 0);
                     }
 
                     try {
-                        valuesUnit.put(UnitTable.KEY_DEPOSIT_UNIT,  Integer.valueOf(unit.getText().toString()));
-                    }catch (Exception e){
-                        valuesUnit.put(UnitTable.KEY_DEPOSIT_UNIT,  0);
+                        valuesUnit.put(UnitTable.KEY_DEPOSIT_UNIT, Integer.valueOf(unit.getText().toString()));
+                    } catch (Exception e) {
+                        valuesUnit.put(UnitTable.KEY_DEPOSIT_UNIT, 0);
                     }
                     dialog.dismiss();
                 }
